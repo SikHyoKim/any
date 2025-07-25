@@ -1,20 +1,48 @@
-import { Stack } from 'expo-router';
+import { router, Stack } from 'expo-router';
 import { Button } from 'react-native';
+import { AuthProvider, useAuth } from './contexts/authContext';
 
 export default function RootLayout() {
   return (
-    <Stack>
-      <Stack.Screen
-        name="index"
-        options={{
-          title: '게시글 목록',
-          headerRight: () => (
-            // 여기에 로그인 버튼 또는 아이콘을 넣을 수 있습니다.
-            <Button title="로그인" onPress={() => {/* 로그인 로직 */}} />
-          ),
+    <AuthProvider>
+      <Stack>
+        <Stack.Screen
+          name="index"
+          options={{
+            title: '게시글 목록',
+            headerBackVisible: false,
+            headerRight: () => <HeaderAuthButton />,
+          }}
+        />
+        <Stack.Screen name="post-list-detail" options={{ headerShown: false }} />
+        <Stack.Screen name="login" options={{ headerShown: false }} />
+        <Stack.Screen name="signup" options={{ headerShown: false }} />
+      </Stack>
+    </AuthProvider>
+  );
+}
+
+function HeaderAuthButton() {
+  const { user, signOut } = useAuth();
+
+  if (user) {
+    return (
+      <Button
+        title="로그아웃"
+        onPress={async () => {
+          await signOut();
+          router.replace('/');
         }}
       />
-      <Stack.Screen name="post-list-detail" options={{ headerShown: false }} />
-    </Stack>
-  );
+    );
+  } else {
+    return (
+      <Button
+        title="로그인"
+        onPress={() => {
+          router.push('/login');
+        }}
+      />
+    );
+  }
 }
