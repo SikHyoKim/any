@@ -1,6 +1,6 @@
 import { router, Stack } from 'expo-router';
 import { Button } from 'react-native';
-import { AuthProvider, useAuth } from './contexts/authContext';
+import { AuthProvider, useAuth } from '../contexts/authContext';
 
 export default function RootLayout() {
   return (
@@ -10,6 +10,7 @@ export default function RootLayout() {
           name="index"
           options={{
             title: '게시글 목록',
+            headerLeft: () => null,
             headerBackVisible: false,
             headerRight: () => <HeaderAuthButton />,
           }}
@@ -17,6 +18,15 @@ export default function RootLayout() {
         <Stack.Screen name="post-list-detail" options={{ headerShown: false }} />
         <Stack.Screen name="login" options={{ headerShown: false }} />
         <Stack.Screen name="signup" options={{ headerShown: false }} />
+        <Stack.Screen name="write" options={{ headerShown: true }} />
+        <Stack.Screen 
+          name="my-posts" 
+          options={{ headerShown: true, title: '내 게시글' }} 
+        />
+        <Stack.Screen 
+          name="edit-post" 
+          options={{ headerShown: true, title: '게시글 수정' }} 
+        />
       </Stack>
     </AuthProvider>
   );
