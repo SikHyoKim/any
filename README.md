@@ -1,6 +1,6 @@
 # Social Media MVP App
 
-React Native와 Firebase를 활용한 간단한 소셜 미디어 MVP 애플리케이션
+React Native와 Firebase를 활용한 간단한 소셜 미디어 MVP 애플리케이션 (25.07.25 ~ 25.07.28)
 
 ## 📱 프로젝트 개요
 
